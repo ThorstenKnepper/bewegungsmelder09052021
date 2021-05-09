@@ -1,5 +1,5 @@
 //  Fragen an Messungen:
-//  
+// 
 //  Wie sieht die Bewegung aus, wenn man steht? --> Messwertaufnahme und Auswertung
 function Zeitmessung(Dauer: number) {
     
@@ -76,7 +76,7 @@ function BewegungErkennen() {
 }
 
 //  Fehlerquellen:
-//  
+// 
 //  Erschütterungen (Zugfahrt)
 //  
 //  Calliope fällt runter
@@ -122,7 +122,7 @@ function MesseBeschleunigungXYZSt() {
 }
 
 //  Programmablauf:
-//  
+// 
 //  Zu Beginn: Warten 100ms? Danach Bewegungsmesser starten
 //  
 //  Zeit starten, in der Bewegungsregistration stattfindet.
@@ -143,6 +143,29 @@ input.onButtonPressed(Button.A, function on_button_pressed_a() {
         boOptisch = 1 - boOptisch
     } else if (MenueSettings == 4) {
         boAkustisch = 1 - boAkustisch
+    } else if (MenueSettings == 5) {
+        if (ZeitMaxUnbeweglichkeit == 1) {
+            ZeitMaxUnbeweglichkeit = 5
+        } else if (ZeitMaxUnbeweglichkeit == 5) {
+            ZeitMaxUnbeweglichkeit = 10
+        } else if (ZeitMaxUnbeweglichkeit == 10) {
+            ZeitMaxUnbeweglichkeit = 20
+        } else if (ZeitMaxUnbeweglichkeit == 20) {
+            ZeitMaxUnbeweglichkeit = 30
+        } else if (ZeitMaxUnbeweglichkeit == 30) {
+            ZeitMaxUnbeweglichkeit = 45
+        } else if (ZeitMaxUnbeweglichkeit == 45) {
+            ZeitMaxUnbeweglichkeit = 60
+        } else if (ZeitMaxUnbeweglichkeit == 60) {
+            ZeitMaxUnbeweglichkeit = 90
+        } else if (ZeitMaxUnbeweglichkeit == 90) {
+            ZeitMaxUnbeweglichkeit = 120
+        } else if (ZeitMaxUnbeweglichkeit == 120) {
+            ZeitMaxUnbeweglichkeit = 1
+        } else {
+            
+        }
+        
     } else {
         
     }
@@ -159,7 +182,7 @@ input.onButtonPressed(Button.B, function on_button_pressed_b() {
         MenueSettings += 1
     }
     
-    if (MenueSettings == 5) {
+    if (MenueSettings == 6) {
         MenueSettings = 1
     }
     
@@ -285,6 +308,18 @@ basic.forever(function on_forever() {
             basic.showString("Off")
         }
         
+    }
+    
+    if (MenueSettings == 5) {
+        basic.showLeds(`
+            . # # # .
+            # . # . #
+            # . # # #
+            # . . . #
+            . # # # .
+            `)
+        basic.pause(500)
+        basic.showString("" + ZeitMaxUnbeweglichkeit + " min")
     }
     
 })

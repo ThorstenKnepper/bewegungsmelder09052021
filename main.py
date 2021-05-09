@@ -101,7 +101,7 @@ def MesseBeschleunigungXYZSt():
 # Reset der Ausgabe, wenn wieder Bewegung registriert wurde oder manueller Reset
 
 def on_button_pressed_a():
-    global boStarteMessung, boReset, boOptisch, boAkustisch, MenueSettings
+    global boStarteMessung, boReset, boOptisch, boAkustisch, MenueSettings, ZeitMaxUnbeweglichkeit
     if MenueSettings == 0:
         boStarteMessung = 1
         boReset = 1
@@ -113,6 +113,27 @@ def on_button_pressed_a():
         boOptisch = 1 - boOptisch
     elif MenueSettings == 4:
         boAkustisch = 1 - boAkustisch
+    elif MenueSettings == 5:
+        if ZeitMaxUnbeweglichkeit == 1:
+            ZeitMaxUnbeweglichkeit=5
+        elif ZeitMaxUnbeweglichkeit == 5:
+            ZeitMaxUnbeweglichkeit=10
+        elif ZeitMaxUnbeweglichkeit == 10:
+            ZeitMaxUnbeweglichkeit=20
+        elif ZeitMaxUnbeweglichkeit == 20:
+            ZeitMaxUnbeweglichkeit=30
+        elif ZeitMaxUnbeweglichkeit == 30:
+            ZeitMaxUnbeweglichkeit=45
+        elif ZeitMaxUnbeweglichkeit == 45:
+            ZeitMaxUnbeweglichkeit=60
+        elif ZeitMaxUnbeweglichkeit == 60:
+            ZeitMaxUnbeweglichkeit=90
+        elif ZeitMaxUnbeweglichkeit == 90:
+            ZeitMaxUnbeweglichkeit=120
+        elif ZeitMaxUnbeweglichkeit == 120:
+            ZeitMaxUnbeweglichkeit=1
+        else:
+            pass
     else:
         pass
 input.on_button_pressed(Button.A, on_button_pressed_a)
@@ -126,7 +147,7 @@ def on_button_pressed_b():
         MenueSettings = 1
     else:
         MenueSettings += 1
-    if MenueSettings == 5:
+    if MenueSettings == 6:
         MenueSettings = 1
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
@@ -193,7 +214,7 @@ MenueSettings=0
 MenueSettings2=0
 
 def on_forever():
-    global MenueSettings,boStarteMessung,boTransfer,boToggle
+    global MenueSettings,boStarteMessung,boTransfer,boToggle,ZeitMaxUnbeweglichkeit
     if boStarteMessung == 1:
         
         if boToggle:
@@ -234,6 +255,16 @@ def on_forever():
             basic.show_string("On")
         else:
             basic.show_string("Off")
+    if MenueSettings == 5:
+        basic.show_leds("""
+            . # # # .
+            # . # . #
+            # . # # #
+            # . . . #
+            . # # # .
+            """)
+        basic.pause(500)
+        basic.show_string(str(ZeitMaxUnbeweglichkeit)+" min")
 basic.forever(on_forever)
 
 # pass
